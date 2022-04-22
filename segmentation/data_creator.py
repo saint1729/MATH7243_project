@@ -45,7 +45,7 @@ SEGMENTATION_CSV_FILES = ["Results_Epidural Hemorrhage Detection_2020-11-16_21.3
                           "Results_Subdural Hemorrhage Detection_2020-11-16_21.35.48.040.csv",
                           "Results_Subdural Hemorrhage Detection_2020-11-16_21.37.19.745.csv"]
 
-TYPE = 1
+TYPE = 2
 
 # SEGMENTATION_CSV_FILES = ["Results_Subdural Hemorrhage Detection_2020-11-16_21.35.48.040.csv",
 #                           "Results_Subdural Hemorrhage Detection_2020-11-16_21.37.19.745.csv"]
@@ -138,7 +138,7 @@ def create_output_canvas(filename, regions, class_names):
 
         for region in regions:
             if region.shape != (0,):
-                canvas[region[:, 1], region[:, 0], :] = 255
+                # canvas[region[:, 1], region[:, 0], :] = 255
                 cv2.fillPoly(canvas, pts=[region], color=(255, 255, 255))
 
         cv2.imwrite(SEGMENTATION_OUTPUT_FOLDER + "/" + filename, canvas)
@@ -212,7 +212,7 @@ if __name__ == "__main__":
     for csv_file_name in SEGMENTATION_CSV_FILES:
         df = pd.read_csv(SEGMENTATION_LABEL_FOLDER + "/" + csv_file_name)
         images_labels = df[["Origin", "Correct Label"]]
-        images_labels = images_labels[images_labels["Correct Label"].notnull()].head(1)
+        images_labels = images_labels[images_labels["Correct Label"].notnull()]
         images_labels["Regions"] = images_labels["Correct Label"].apply(convert_regions)
         images_labels["Origin"].apply(create_image)
         images_labels["Classes"] = images_labels["Origin"].apply(assign_class_names)

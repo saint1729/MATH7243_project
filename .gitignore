@@ -4,3 +4,4 @@ segmentation/data/segmentation.zip
 *__pycache__*
 *.DS_Store*
 *saved_model*
+segmentation/.ipynb_checkpoints/*
