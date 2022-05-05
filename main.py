@@ -12,7 +12,6 @@ def preprocess(image, label):
     final_image = keras.applications.xception.preprocess_input(resized_image)
     return final_image, label
 
-
 def get_training_and_validation_data(batch_size, file_dir, seed):
     training_dataset = tf.keras.preprocessing.image_dataset_from_directory(
         file_dir, image_size=(512, 512), batch_size=batch_size, validation_split=0.2,
